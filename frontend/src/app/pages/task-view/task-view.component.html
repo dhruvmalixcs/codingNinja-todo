@@ -1,0 +1,230 @@
+<div class="centered-content">
+    <div class="task-manager-container" >
+        <div class="sidebar">
+            <div class="list-top-bar">
+                <h1 class="title has-text-primary">
+                    Lists
+                </h1>
+
+                <button class="list-edit-button button" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                        <path fill="#262626" d="m18.988 2.012l3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287l-3-3L8 13z" />
+                        <path fill="#262626" d="M19 19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2z" />
+                    </svg>
+                </button>
+                <button class="list-delete-button button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                        <path fill="#262626" d="M6 21h12V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="list-menu-container">
+            <div class="list-menu">
+                <!-- <a class="list-menu-item" *ngFor="let list of lists"  routerLinkActive="is-active">
+                    <p>{{list.title}}</p>
+                </a> -->
+                <a class="list-menu-item">
+                    <p>list 1</p>
+                </a>
+                <a class="list-menu-item">
+                    <p>list 2</p>
+                </a>
+                <a class="list-menu-item">
+                    <p>list 3</p>
+                </a>
+
+            </div>
+            </div>
+
+            <button class="button is-primary has-text-$light-gray" (click)="createList()" >
+                + New List kk
+            </button>
+        </div>
+
+        <div class="task-list-container">
+            <div class="task-top-bar">
+                <h1 class="title has-text-primary">
+                    Tasks
+                </h1>
+
+                <div class="dropdown is-hoverable is-right">
+                    <div class="dropdown-trigger">
+                      <button class="sort-button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                        <span class="filter">
+                            <span style="margin-right: 6px; font-weight: 500;">Sort by</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
+                                <path fill="#abb1bf" d="M.75 3h14.5a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1 0-1.5M3 7.75A.75.75 0 0 1 3.75 7h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 3 7.75m3 4a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75" />
+                            </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                      <div class="dropdown-content">
+                        <a class="dropdown-item" >Priority</a>
+                        <a class="dropdown-item" >Due Date</a>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="task-list">
+                <div  class="no-list-selected">
+                    <p>No lists selected, please select a list before you can add a task</p>
+                </div>
+                <div  class="no-tasks">
+                    <p>No tasks in this list, Click the '+' button to add tasks</p>
+                </div>
+                <div class="task" >
+                    <div class="task-details" >
+                        <span class="task-title"></span>
+                        <p>Due: </p>
+                        <p>Description:</p>
+                    </div>
+                    <div class="task-buttons">
+                        <button class="task-edit-button button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
+                                <path fill="#262626" d="m18.988 2.012l3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287l-3-3L8 13z" />
+                                <path fill="#262626" d="M19 19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2z" />
+                            </svg>
+                        </button>
+                        <button class="task-delete-button button" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
+                                <path fill="#262626" d="M6 21h12V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="task" >
+                    <p>this is something i have to do</p>
+                </div>
+                <div class="task" >
+                    <p>this is something i have to do</p>
+                </div>
+                <div class="task complete" >
+                    <p>this is something i have to do</p>
+                </div>
+
+                <button class="circle-add-button button" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+                        <path fill="none" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CREATE-NEW-LIST MODAL -->
+<div class="create-list-modal-box" >
+    <h1 class="title has-text-primary">
+        Create a new list
+    </h1>
+
+    <div class="field">
+        <p class="control">
+            <input #listTitle class="input" type="text" placeholder="Enter list name">
+        </p>
+        <p class="control">
+            <a class="button is-primary $light-gray" >
+                Create
+            </a>
+        </p>
+    </div>
+</div>
+
+<!-- UPDATE-LIST-MODAL -->
+<div class="update-list-modal-box" >
+    <h1 class="title has-text-primary">
+        Update the list
+    </h1>
+
+    <div class="field">
+        <p class="control">
+            <input #updatedListTitle class="input" type="text" placeholder="Enter list name">
+        </p>
+        <p class="control">
+            <a class="button is-primary $light-gray" >
+                Edit
+            </a>
+        </p>
+    </div>
+</div>
+
+<!-- CREATE-NEW-TASK MODAL -->
+<div class="create-task-modal-box" >
+    <h1 class="title has-text-primary">
+        Create a new task
+    </h1>
+
+    <div class="field">
+        <p class="control">
+            Task title
+            <input #taskTitle class="input" type="text" placeholder="Enter task title">
+        </p>
+        <p class="control">
+            What needs to be done ?
+            <textarea #taskDesc class="textarea" placeholder="Enter task description"></textarea>
+        </p>
+        <div class="date-and-priority">
+            <div class="date-control">
+                Due date
+                <input #taskDueDate class="input" type="date" placeholder="Enter date">
+            </div>
+            <div class="priority-control">
+                <p>Priority</p>
+                <div class="select">
+                    <select #taskPriority>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <p class="control">
+            <a class="button is-primary $light-gray" >
+                Create
+            </a>
+        </p>
+    </div>
+</div>
+
+<!-- UPDATE-TASK-MODAL -->
+<div class="update-task-modal-box" >
+    <h1 class="title has-text-primary">
+        Update the task details
+    </h1>
+
+    <div class="field">
+        <p class="control">
+            Task title
+            <input #updatedTaskTitle class="input" type="text" placeholder="Enter task title" >
+        </p>
+        <p class="control">
+            What needs to be done ?
+            <textarea #updatedTaskDesc class="textarea" placeholder="Enter task description"></textarea>
+        </p>
+        <div class="date-and-priority">
+            <div class="date-control">
+                Due date
+                <input #updatedTaskDueDate class="input" type="date" placeholder="Enter date" >
+            </div>
+            <div class="priority-control">
+                <p>Priority</p>
+                <div class="select">
+                    <select #updatedTaskPriority>
+                        <option value="low" >Low</option>
+                        <option value="medium" >Medium</option>
+                        <option value="high" >High</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <p class="control">
+            <a class="button is-primary $light-gray" >
+                Update
+            </a>
+        </p>
+    </div>
+</div>
