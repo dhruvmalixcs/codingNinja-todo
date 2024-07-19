@@ -1,18 +1,18 @@
 <div class="centered-content">
-    <div class="task-manager-container" >
+    <div class="task-manager-container" [class.blurred]="createListModalOpen || createTaskModalOpen || updateListModalOpen || updateTaskModalOpen">
         <div class="sidebar">
             <div class="list-top-bar">
-                <h1 class="title has-text-primary">
+                <h1 class="title">
                     Lists
                 </h1>
 
-                <button class="list-edit-button button" >
+                <button class="list-edit-button button" (click)="toggleUpdateListModal($event)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                         <path fill="#262626" d="m18.988 2.012l3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287l-3-3L8 13z" />
                         <path fill="#262626" d="M19 19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2z" />
                     </svg>
                 </button>
-                <button class="list-delete-button button">
+                <button class="list-delete-button button" (click)="deleteListClick()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                         <path fill="#262626" d="M6 21h12V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z" />
                     </svg>
@@ -21,30 +21,20 @@
 
             <div class="list-menu-container">
             <div class="list-menu">
-                <!-- <a class="list-menu-item" *ngFor="let list of lists"  routerLinkActive="is-active">
+                <a class="list-menu-item" *ngFor="let list of lists" [routerLink]="['/lists',list._id]" routerLinkActive="is-active">
                     <p>{{list.title}}</p>
-                </a> -->
-                <a class="list-menu-item">
-                    <p>list 1</p>
                 </a>
-                <a class="list-menu-item">
-                    <p>list 2</p>
-                </a>
-                <a class="list-menu-item">
-                    <p>list 3</p>
-                </a>
-
             </div>
             </div>
 
-            <button class="button is-primary has-text-$light-gray" (click)="createList()" >
-                + New List kk
+            <button class="button  has-text-$light-gray" (click)="toggleCreateListModal($event)">
+                + New List
             </button>
         </div>
 
         <div class="task-list-container">
             <div class="task-top-bar">
-                <h1 class="title has-text-primary">
+                <h1 class="title">
                     Tasks
                 </h1>
 
@@ -61,51 +51,42 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                       <div class="dropdown-content">
-                        <a class="dropdown-item" >Priority</a>
-                        <a class="dropdown-item" >Due Date</a>
+                        <a class="dropdown-item" (click)="sortTasksBy('priority')">Priority</a>
+                        <a class="dropdown-item" (click)="sortTasksBy('duedate')">Due Date</a>
                       </div>
                     </div>
                   </div>
             </div>
 
             <div class="task-list">
-                <div  class="no-list-selected">
+                <div *ngIf="!listId" class="no-list-selected">
                     <p>No lists selected, please select a list before you can add a task</p>
                 </div>
-                <div  class="no-tasks">
+                <div *ngIf="tasks.length === 0 && listId" class="no-tasks">
                     <p>No tasks in this list, Click the '+' button to add tasks</p>
                 </div>
-                <div class="task" >
-                    <div class="task-details" >
-                        <span class="task-title"></span>
-                        <p>Due: </p>
-                        <p>Description:</p>
+                <div class="task" *ngFor="let task of tasks" [class.completed]="task.completed">
+                    <div class="task-details" (click)="onTaskClick(task)">
+                        <span class="task-title">{{task.title}}</span>
+                        <p>Due: {{ task.dueDate | date: 'yyyy-MM-dd' }}</p>
+                        <p>Description: {{task.desc}}</p>
                     </div>
                     <div class="task-buttons">
-                        <button class="task-edit-button button">
+                        <button class="task-edit-button button" (click)="toggleUpdateTaskModal($event,task)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
                                 <path fill="#262626" d="m18.988 2.012l3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287l-3-3L8 13z" />
                                 <path fill="#262626" d="M19 19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2z" />
                             </svg>
                         </button>
-                        <button class="task-delete-button button" >
+                        <button class="task-delete-button button" (click)="deleteTaskClick(task._id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24">
                                 <path fill="#262626" d="M6 21h12V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z" />
                             </svg>
                         </button>
                     </div>
                 </div>
-                <div class="task" >
-                    <p>this is something i have to do</p>
-                </div>
-                <div class="task" >
-                    <p>this is something i have to do</p>
-                </div>
-                <div class="task complete" >
-                    <p>this is something i have to do</p>
-                </div>
 
-                <button class="circle-add-button button" >
+                <button class="circle-add-button button" (click)="toggleCreateTaskModal($event)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
                         <path fill="none" stroke="#141414" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7v14" />
                     </svg>
@@ -116,7 +97,7 @@
 </div>
 
 <!-- CREATE-NEW-LIST MODAL -->
-<div class="create-list-modal-box" >
+<div class="create-list-modal-box" [class.is-active]="createListModalOpen">
     <h1 class="title has-text-primary">
         Create a new list
     </h1>
@@ -126,7 +107,7 @@
             <input #listTitle class="input" type="text" placeholder="Enter list name">
         </p>
         <p class="control">
-            <a class="button is-primary $light-gray" >
+            <a class="button is-primary $light-gray" (click)="createList(listTitle.value)">
                 Create
             </a>
         </p>
@@ -134,7 +115,7 @@
 </div>
 
 <!-- UPDATE-LIST-MODAL -->
-<div class="update-list-modal-box" >
+<div class="update-list-modal-box" [class.is-active]="updateListModalOpen">
     <h1 class="title has-text-primary">
         Update the list
     </h1>
@@ -144,7 +125,7 @@
             <input #updatedListTitle class="input" type="text" placeholder="Enter list name">
         </p>
         <p class="control">
-            <a class="button is-primary $light-gray" >
+            <a class="button is-primary $light-gray" (click)="updateList(updatedListTitle.value)">
                 Edit
             </a>
         </p>
@@ -152,7 +133,7 @@
 </div>
 
 <!-- CREATE-NEW-TASK MODAL -->
-<div class="create-task-modal-box" >
+<div class="create-task-modal-box" [class.is-active]="createTaskModalOpen">
     <h1 class="title has-text-primary">
         Create a new task
     </h1>
@@ -183,7 +164,7 @@
             </div>
         </div>
         <p class="control">
-            <a class="button is-primary $light-gray" >
+            <a class="button is-primary $light-gray" (click)="createTask(taskTitle.value,taskDesc.value,taskDueDate.value,taskPriority.value)">
                 Create
             </a>
         </p>
@@ -191,7 +172,7 @@
 </div>
 
 <!-- UPDATE-TASK-MODAL -->
-<div class="update-task-modal-box" >
+<div class="update-task-modal-box" [class.is-active]="updateTaskModalOpen">
     <h1 class="title has-text-primary">
         Update the task details
     </h1>
@@ -199,32 +180,34 @@
     <div class="field">
         <p class="control">
             Task title
-            <input #updatedTaskTitle class="input" type="text" placeholder="Enter task title" >
+            <input #updatedTaskTitle class="input" type="text" placeholder="Enter task title" [value]="currentTask?.title">
         </p>
         <p class="control">
             What needs to be done ?
-            <textarea #updatedTaskDesc class="textarea" placeholder="Enter task description"></textarea>
+            <textarea #updatedTaskDesc class="textarea" placeholder="Enter task description">{{currentTask?.desc}}</textarea>
         </p>
         <div class="date-and-priority">
             <div class="date-control">
                 Due date
-                <input #updatedTaskDueDate class="input" type="date" placeholder="Enter date" >
+                <input #updatedTaskDueDate class="input" type="date" placeholder="Enter date" [value]="currentTask?.dueDate | date: 'yyyy-MM-dd'">
             </div>
             <div class="priority-control">
                 <p>Priority</p>
                 <div class="select">
                     <select #updatedTaskPriority>
-                        <option value="low" >Low</option>
-                        <option value="medium" >Medium</option>
-                        <option value="high" >High</option>
+                        <option value="low" [selected]="currentTask?.priority === 'low'">Low</option>
+                        <option value="medium" [selected]="currentTask?.priority === 'medium'">Medium</option>
+                        <option value="high" [selected]="currentTask?.priority === 'high'">High</option>
                     </select>
                 </div>
             </div>
         </div>
         <p class="control">
-            <a class="button is-primary $light-gray" >
+            <a class="button is-primary $light-gray" (click)="updateTask(updatedTaskTitle.value,updatedTaskDesc.value,updatedTaskDueDate.value,updatedTaskPriority.value)">
                 Update
             </a>
         </p>
     </div>
+    <button (click)="exportTasksToExcel()">Export Tasks to Excel</button>
+<button (click)="exportListsToExcel()">Export Lists to Excel</button>
 </div>

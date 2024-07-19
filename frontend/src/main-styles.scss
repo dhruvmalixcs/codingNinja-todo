@@ -1,10 +1,10 @@
-$light-gray: #262626;
-$gray: #1f1f1f;
-$medium-gray: #17171746;
-$dark-gray: #141414;
+$light-gray: white;
+$gray:gray;
+$medium-gray: dark gray;
+$dark-gray: beige;
 
-$blue: #65a7e1;
-$emerald: #017556;
+$blue: rgb(199, 139, 29);
+$emerald: rgb(243, 161, 8);
 
 $low-priority: #00ff59;
 $medium-priority: #ffea00;
@@ -30,7 +30,7 @@ html,body{
 }
 
 .task-title{
-    color: #65a7e1;
+    color: #000000;
     text-decoration: underline;
     text-transform: uppercase;
 }
@@ -45,6 +45,7 @@ html,body{
 
 .task-manager-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     max-width: 1050px;
@@ -77,6 +78,7 @@ html,body{
 }
 
 .list-menu-container {
+    display: flex;
     flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 10px;
@@ -133,7 +135,8 @@ html,body{
     }
 }
 
-.title{
+.title{ 
+    color:#000000;
     font-size: 28px;
     text-transform: uppercase;
     letter-spacing: -0.5px;
@@ -141,7 +144,6 @@ html,body{
 
 .list-menu{
     display: flex;
-    flex-direction: column;
     margin-top: 30px;
     flex-grow: 1;
 
@@ -156,19 +158,19 @@ html,body{
         margin-bottom: 10px;
 
         &:hover{
-            color: #65a7e1;
+            color: #000000;
             background-color: $gray;
         }
 
         &.is-active{
-            color: #65a7e1;
+            color: #000000;
             background-color: $gray;
         }
     }
 }
 
 .button{
-    background-color: #65a7e1;
+    background-color: #000000;
     border-radius: 2px;
 }
 
