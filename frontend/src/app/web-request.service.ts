@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class WebRequestService {
   readonly ROOT_URL;
   constructor(private http: HttpClient) {
-    this.ROOT_URL = "http://localhost:5000";
+    this.ROOT_URL = "https://codingninja-todo.onrender.com";
    }
 
   get(uri: string){
